@@ -1,13 +1,14 @@
-import { createToken } from '../auth/tokenFunctions';
-import { createUserModel } from '../models/users.model';
+import { createUserModel, getUserByIdModel } from '../models/users.model';
 import { User } from '../interfaces/users.interface';
 
 export const createUserService = async (
   { username, password, level, vocation }:User,
-):Promise<string> => {
+):Promise<number> => {
   const id = await createUserModel({ username, password, level, vocation });
-  const token = createToken({ id, username, password, level, vocation });
-  return token;
+  return id;
 };
 
-export const x = async () => {};
+export const getUserByIdService = async (username: string) => {
+  const user = await getUserByIdModel(username);
+  return user;
+};

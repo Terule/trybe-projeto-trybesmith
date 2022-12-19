@@ -1,6 +1,6 @@
 export type Login = {
   username: string,
-  password: string
+  password?: string
 };
 
 export type User = {
