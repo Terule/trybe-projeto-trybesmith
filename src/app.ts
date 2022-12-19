@@ -1,5 +1,5 @@
 import express from 'express';
-import { userInfoValidation, loginValidation } from './middleware/loginValidation';
+import { userInfoValidation, loginValidation } from './middlewares/loginValidation';
 import getAllOrdersController from './controllers/orders.controller';
 import { 
   getAllProductsController,

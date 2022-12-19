@@ -8,7 +8,6 @@ Promise<number> => {
     'INSERT INTO Trybesmith.products (name, amount) VALUES (?, ?)',
     [name, amount],
   );
-  console.log();
   return result.insertId;
 };
 

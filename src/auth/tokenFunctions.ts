@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../interfaces/users.interface';
 
-const secret:string = process.env.JWT_SECRET || 'seuSegredo';
+const secret = 'asharabacontaia';
 const tokenConfig:object = {
   algorithm: 'HS256',
   expiresIn: '1d',
