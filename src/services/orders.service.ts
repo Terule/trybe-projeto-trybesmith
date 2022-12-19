@@ -1,9 +1,12 @@
 import { Order } from '../interfaces/orders.inteface';
-import { getAllOrdersModel } from '../models/orders.model';
+import { createOrderModel, getAllOrdersModel } from '../models/orders.model';
 
-const getAllOrdersService = async ():Promise<Order[]> => {
+export const getAllOrdersService = async ():Promise<Order[]> => {
   const orders = await getAllOrdersModel();
   return orders;
 };
 
-export default getAllOrdersService;
+export const createOrderService = async (userId:number, productsIds: number[]) => {
+  await createOrderModel(userId, productsIds);
+  return { userId, productsIds };
+};

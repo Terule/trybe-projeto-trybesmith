@@ -1,4 +1,4 @@
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { Order } from '../interfaces/orders.inteface';
 import connection from './connection';
 
@@ -14,4 +14,18 @@ export const getAllOrdersModel = async ():Promise<Order[]> => {
   return orders;
 };
 
-export const x = () => {};
+export const createOrderModel = async (userId: number, productIds: number[]) => {
+  const [result] = await connection.execute<ResultSetHeader>(`
+    INSERT INTO Trybesmith.orders (user_id) VALUES (?);
+  `, [userId]);
+  productIds.forEach(async (id) => {
+    await connection.execute(
+      `
+      UPDATE Trybesmith.products
+      SET order_id = ? 
+      WHERE id = ?`,
+      [result.insertId, id],
+    );
+  });
+  return result.insertId;
+};

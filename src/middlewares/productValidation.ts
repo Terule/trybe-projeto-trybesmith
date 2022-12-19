@@ -33,3 +33,20 @@ export const amountValidation = (req: Request, res: Response, next: NextFunction
   }
   next();
 };
+
+export const idsValidation = (req: Request, res: Response, next: NextFunction) => {
+  const { productsIds }:{ productsIds: number[] } = req.body;
+  if (!productsIds) {
+    res.status(400).send({ message: '"productsIds" is required' });
+    return;
+  }
+  if (!Array.isArray(productsIds)) {
+    res.status(422).send({ message: '"productsIds" must be an array' });
+    return;
+  }
+  if (productsIds.length === 0) {
+    res.status(422).send({ message: '"productsIds" must include only numbers' });
+    return;
+  }
+  next();
+};

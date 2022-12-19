@@ -1,12 +1,12 @@
 import express from 'express';
-import { userInfoValidation, loginValidation } from './middlewares/loginValidation';
-import getAllOrdersController from './controllers/orders.controller';
+import { userInfoValidation, loginValidation, validateToken } from './middlewares/loginValidation';
+import { createOrderController, getAllOrdersController } from './controllers/orders.controller';
 import { 
   getAllProductsController,
   createProductController,
 } from './controllers/products.controller';
 import { createUserController, login } from './controllers/users.controller';
-import { amountValidation, nameValidation } from './middlewares/productValidation';
+import { amountValidation, idsValidation, nameValidation } from './middlewares/productValidation';
 import {
   levelValidation,
   passwordValidation,
@@ -38,5 +38,6 @@ app.post(
 );
 
 app.get('/orders', getAllOrdersController);
+app.post('/orders', validateToken, idsValidation, createOrderController);
 
 export default app;
