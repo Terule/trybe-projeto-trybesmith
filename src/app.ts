@@ -1,4 +1,5 @@
 import express from 'express';
+import getAllOrdersController from './controllers/orders.controller';
 import { 
   getAllProductsController,
   createProductController,
@@ -13,5 +14,7 @@ app.post('/products', createProductController);
 app.get('/products', getAllProductsController);
 
 app.post('/users', createUserController);
+
+app.get('/orders', getAllOrdersController);
 
 export default app;
