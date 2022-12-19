@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { getUserByIdService } from '../services/users.service';
 import { Login } from '../interfaces/users.interface';
+import { verifyToken } from '../auth/tokenFunctions';
 
 export const userInfoValidation = (req: Request, res: Response, next: NextFunction):void => {
   const { username, password }:Login = req.body;
@@ -28,4 +29,23 @@ export const loginValidation = async (req: Request, res: Response, next: NextFun
   }
   req.body.user = user;
   next(); 
+};
+
+export const validateToken = (req: Request, res: Response, next: NextFunction) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    res.status(401).send({ message: 'Token not found' });
+    return;
+  }
+  try {
+    const status = verifyToken(token);
+    if (!status) {
+      res.status(401).send({ message: 'Invalid token' });
+      return;
+    }
+    req.body.payload = status;
+    next();
+  } catch (err) {
+    res.status(401).send({ message: 'Invalid token' });
+  }
 };

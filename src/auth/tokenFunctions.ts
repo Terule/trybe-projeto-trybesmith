@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { User } from '../interfaces/users.interface';
 
 const secret = 'asharabacontaia';
@@ -12,7 +12,7 @@ export const createToken = (user: User):string => {
   return token;
 };
 
-export const validateToken = (token:string) => {
-  const status = jwt.verify(token, secret);
+export const verifyToken = (token:string) => {
+  const status: string | JwtPayload = jwt.verify(token, secret);
   return status;
 };
