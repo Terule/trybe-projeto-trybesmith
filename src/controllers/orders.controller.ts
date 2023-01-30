@@ -10,7 +10,10 @@ export const getAllOrdersController = async (_req:Request, res: Response):Promis
 export const createOrderController = async (req:Request, res: Response) => {
   const { data }: { data: User } = req.body.payload;
   const { productsIds }: { productsIds: number[] } = req.body;
-  if (!data.id) return;
+  if (!data.id) {
+    res.status(404).send({ message: '"UserId" is required' });
+    return;
+  }
   const result = await createOrderService(data.id, productsIds);
   res.status(201).json(result);
 };

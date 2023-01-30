@@ -43,7 +43,7 @@ export const validateToken = (req: Request, res: Response, next: NextFunction) =
       res.status(401).send({ message: 'Invalid token' });
       return;
     }
-    req.body.payload = status;
+    req.body.user = status;
     next();
   } catch (err) {
     res.status(401).send({ message: 'Invalid token' });
